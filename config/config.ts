@@ -14,7 +14,8 @@ const { REACT_APP_ENV = 'dev' } = process.env;
  * @description 部署时的路径，如果部署在非根目录下，需要配置这个变量
  * @doc https://umijs.org/docs/api/config#publicpath
  */
-const PUBLIC_PATH: string = '/';
+const PUBLIC_PATH: string =
+  process.env.NODE_ENV === 'production' ? '/ant-starter/' : '/';
 
 export default defineConfig({
   /**
@@ -23,7 +24,7 @@ export default defineConfig({
    * @doc https://umijs.org/docs/api/config#hash
    */
   hash: true,
-
+  history: { type: 'hash' },
   publicPath: PUBLIC_PATH,
 
   /**
