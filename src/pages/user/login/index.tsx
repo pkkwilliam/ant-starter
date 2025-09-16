@@ -27,6 +27,7 @@ import { Footer } from '@/components';
 import { login } from '@/services/ant-design-pro/api';
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
 import Settings from '../../../../config/defaultSettings';
+import { history } from '@umijs/max'; // or '@umijs/router' depending on version
 
 const useStyles = createStyles(({ token }) => {
   return {
@@ -142,7 +143,11 @@ const Login: React.FC = () => {
         message.success(defaultLoginSuccessMessage);
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
-        window.location.href = urlParams.get('redirect') || '/';
+        // window.location.href = urlParams.get('redirect') || '/';
+
+        const redirect = urlParams.get('redirect');
+        history.push(redirect || '/dashboard'); // <-- use router, not window.location
+
         return;
       }
       console.log(msg);
